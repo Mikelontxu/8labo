@@ -1,0 +1,34 @@
+Desde la terminal de kubernetes de google:
+
+# desde la raíz del repo, construir
+docker build -t mikelontxu/as-laboratorio-8-web:latest ./app
+
+# iniciar sesión Docker Hub (interactivo)
+docker login
+
+# push
+docker push mikelontxu/as-laboratorio-8-web:latest
+
+APLICAR YML AL CLUSTER (CREAR OBJETOS):
+
+kubectl apply -f k8s/redis-deployment.yml
+kubectl apply -f k8s/redis-service.yml
+kubectl apply -f k8s/web-deployment.yml
+kubectl apply -f k8s/web-service.yml
+
+COMPROBACIONES:
+
+kubectl get deployments
+kubectl get pods -o wide
+kubectl get svc
+
+IP EXTERNA:
+
+kubectl get svc web-service --watch
+
+ELIMINAR LOS OBJETOS:
+
+kubectl delete -f k8s/redis-deployment.yml
+kubectl delete -f k8s/redis-service.yml
+kubectl delete -f k8s/web-deployment.yml
+kubectl delete -f k8s/web-service.yml

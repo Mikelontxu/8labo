@@ -19,3 +19,8 @@ spec:
           ports:
             - containerPort: 5000
 
+# Workload Identity Federation setup for GitHub Actions
+# -----------------------------------------------
+# https://iam.googleapis.com/projects/564801794067/locations/global/workloadIdentityPools/45454545/providers/github-actions-provider
+# gmail:
+# github-actions-sa-2@sistemak.iam.gserviceaccount.com 

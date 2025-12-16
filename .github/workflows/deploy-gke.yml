@@ -1,0 +1,55 @@
+name: Build and Deploy to GKE
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+    # 1 Descargar el código
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    # 2 Login en Docker Hub
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    # 3 Build & Push imagen Docker
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        push: true
+        tags: as-laboratorio8-web:latest
+
+    # 4 Autenticación en Google Cloud
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v3
+      with:
+        project_id: sistemak
+        workload_identity_provider: projects/564801794067/locations/global/workloadIdentityPools/45454545/providers/github-actions-provider
+        service_account: github-actions-sa-2@sistemak.iam.gserviceaccount.com
+        
+
+    # 5 Obtener credenciales del cluster GKE
+    - name: Get GKE credentials
+      uses: google-github-actions/get-gke-credentials@v3
+      with:
+        cluster_name: labo8cluster
+        location: europe-north1
+
+    # 6 Desplegar en Kubernetes
+    - name: Deploy to Kubernetes
+      run: |
+        kubectl apply -f k8s/
