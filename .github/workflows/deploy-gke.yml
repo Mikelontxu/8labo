@@ -29,9 +29,9 @@ jobs:
     - name: Build and push Docker image
       uses: docker/build-push-action@v5
       with:
-        context: .
+        context: ./app
         push: true
-        tags: as-laboratorio8-web:latest
+        tags: ${{ secrets.DOCKERHUB_USER }}/as-laboratorio8-web:latest
 
     # 4 Autenticación en Google Cloud
     - name: Authenticate to Google Cloud
