@@ -1,0 +1,24 @@
+name: Pruebas de aplicación
+
+on:
+  push:
+    branches-ignore:
+      - main  # Se dispara en todas las ramas excepto main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+
+    steps:
+      # 1) Descargar el código
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2) Realizar pruebas del código con pylint
+      - name: Python code scanning with linter
+        uses: advanced-security/python-lint-code-scanning-action@v1
+        with:
+          linter: pylint
