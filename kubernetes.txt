@@ -35,3 +35,4 @@ kubectl delete -f k8s/web-service.yml
 
 GOOGLE CLOUD ES UNA MOVIDA
 CUIDADO CON QUE BINDEAS EN IAM Y ADMINISTRACIÓN
+aaa
