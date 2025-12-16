@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
         - name: web
-          image: as-laboratorio-8-web
+          image: mikelontxu/as-laboratorio-8-web
+          imagePullPolicy: Always
           ports:
             - containerPort: 5000
 
